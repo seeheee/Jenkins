@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.StockMapper">
+
+    <insert id="insertSelectKey">
+        <selectKey keyProperty="inventoryid" order="BEFORE" resultType="long">
+            select seq_inventory.nextval from dual
+        </selectKey>
+        insert into inventory (inventoryid, inventoryname, limit, quantity)
+        values (#{inventoryid}, #{inventoryname}, #{limit}, #{quantity})
+    </insert>
+
+    <select id="getList" resultType="org.zerock.domain.StockVO">
+    <![CDATA[
+        select * from inventory where inventoryid > 0
+        ]]>
+</select>
+
+</mapper>
